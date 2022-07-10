@@ -19,10 +19,22 @@ describe('Login/Logout Test', () => {
     });
 
     it('Should login to application with valid data', () => {
-        // TODO
+        cy.fixture('user').then(user => {
+            const username = user.username
+            const password = user.password
+
+            cy.get('#user_login').clear()
+            cy.get('#user_login').type(username)
+            cy.get('#user_password').clear()
+            cy.get('#user_password').type(password)
+            cy.get('input[name="submit"]').click()
+        })
+        cy.get('h2').should('contain.text', 'Cash Accounts')
     });
 
     it('Should logout from the application', () => {
-        // TODO
+        cy.contains('username').click()
+        cy.get('#logout_link').click()
+        cy.get('strong').should('contain.text', 'Home')
     });
 });
